@@ -1,6 +1,6 @@
-import app from "./app";
-import config from "./app/config";
-import mongoose from "mongoose";
+import app from './app';
+import config from './app/config';
+import mongoose from 'mongoose';
 
 // pass authentication = admin2003
 // DATABASE_URL=mongodb+srv://mitul5267:lIQajUg7BpewMtVj@cluster0.bsnes.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
