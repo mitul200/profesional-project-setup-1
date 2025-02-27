@@ -7,8 +7,8 @@ import { studentService } from './student.service';
 const creatStudent = async (req: Request, res: Response) => {
   // data client theke body er moddhome ansi
   try {
-    const student = req.body;
-    const result = await studentService.creatStudentIntroDB(student);
+    const { student: studentData } = req.body;
+    const result = await studentService.creatStudentIntroDB(studentData);
     // student name ei data ta amra service k diye dibo
     res.status(200).json({
       success: true,
@@ -21,6 +21,48 @@ const creatStudent = async (req: Request, res: Response) => {
   // send response
 };
 
+const getAllStudent = async (req: Request, res: Response) => {
+  try {
+    const result = await studentService.getAllStudentsFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Students retrive successfully 2nd time',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getSingleStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const result = await studentService.getSingleStudentFromDB(studentId);
+    res.status(200).json({
+      success: true,
+      message: ' Single Students info retrive successfully',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// const getAllStudent = async (req: Request, res: Response) => {
+//   try {
+//     const result = await studentService.getAllStudentsFromDB();
+//     res.status(200).json({
+//       success: true,
+//       message: 'student retrive successfulluy',
+//       data: result,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 export const studentContollers = {
   creatStudent,
+  getAllStudent,
+  getSingleStudent,
 };
