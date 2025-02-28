@@ -16,7 +16,11 @@ const creatStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Students retrive successfully 2nd time',
+      error: error,
+    });
   }
   // send response
 };
@@ -24,13 +28,17 @@ const creatStudent = async (req: Request, res: Response) => {
 const getAllStudent = async (req: Request, res: Response) => {
   try {
     const result = await studentService.getAllStudentsFromDB();
-    res.status(200).json({
+    res.status(500).json({
       success: true,
       message: 'Students retrive successfully 2nd time',
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(200).json({
+      success: false,
+      message: 'Students retrive successfully 2nd time',
+      error: error,
+    });
   }
 };
 
