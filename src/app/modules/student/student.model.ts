@@ -1,17 +1,18 @@
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { Guardian, LocalGuardian, Student } from './student.interface';
 
 const userNameSchema = new Schema({
   firstName: {
     type: String,
-    required: true,
+    required: [true, 'First Name is required !'],
   },
   middleName: {
     type: String,
+    required: [true, 'Middle Name is required !'],
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, 'Last Name is required !'],
   },
 });
 
@@ -32,20 +33,40 @@ const localGuardianSchema = new Schema<LocalGuardian>({
 });
 
 const studentSchema = new Schema<Student>({
-  id: { type: String },
-  name: userNameSchema,
-  gender: ['male', 'female'],
+  id: { type: String, required: true, unique: true },
+  name: {
+    type: userNameSchema,
+    required: true,
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other'],
+    required: true,
+  },
   dateOfBirth: { type: String },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   contactNo: { type: String, required: true },
   emergencyContactNumber: { type: String, required: true },
-  bloodGrp: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+  bloodGrp: {
+    type: String,
+    enum: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+  },
   presentAdress: { type: String, required: true },
   parmanentAdress: { type: String, required: true },
-  guardian: guardianSchema,
-  localGuardian: localGuardianSchema,
+  guardian: { type: guardianSchema, required: true },
+  localGuardian: {
+    type: localGuardianSchema,
+    required: true,
+  },
   profileImg: { type: String },
-  isActive: ['active', 'blocked'],
+  isActive: {
+    type: String,
+    enum: {
+      values: ['active', 'blocked'],
+      message: `{VALUE} is not supported Gender field can be one of following 'male','female','other'`,
+    },
+    default: 'active',
+  },
 });
 
 // Create a Model.
