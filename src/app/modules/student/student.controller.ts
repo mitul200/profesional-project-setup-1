@@ -1,14 +1,27 @@
 import { Request, Response } from 'express';
 import { studentService } from './student.service';
+import studentValidationJoiSchema from './student.validation';
 
 // *** controller ar kaj hocche req nibe ar response pathabe *** ??
 
 // client theke amra 3 vabe data ante pari 1) params 2)query 3)body diye
 const creatStudent = async (req: Request, res: Response) => {
   // data client theke body er moddhome ansi
+
   try {
     const { student: studentData } = req.body;
+    const { error, value } = studentValidationJoiSchema.validate(studentData);
+    console.log(error, value);
+
     const result = await studentService.creatStudentIntroDB(studentData);
+    if (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Something wants wrong',
+        error: error.details,
+      });
+    }
+
     // student name ei data ta amra service k diye dibo
     res.status(200).json({
       success: true,
