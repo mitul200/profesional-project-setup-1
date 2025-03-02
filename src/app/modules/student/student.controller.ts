@@ -28,11 +28,11 @@ const creatStudent = async (req: Request, res: Response) => {
       message: 'student is created successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'Students retrive successfully 2nd time',
-      error: error,
+      message: err.message || 'Students retrive successfully 2nd time',
+      error: err,
     });
   }
   // send response
