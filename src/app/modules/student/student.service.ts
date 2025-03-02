@@ -6,14 +6,18 @@ import { Student } from './student.model';
 
 const creatStudentIntroDB = async (studentData: TStudent) => {
   // database ar query kar upore cholbe model ar upore
-  // const result = await Student.create(student); //built in static method
-
-  const student = new Student(studentData);
-  if (await student.isUserExists(studentData.id)) {
-    throw new Error('User already exists');
+  if (await Student.isUserExists(studentData.id)) {
+    throw new Error('user already exists from static !');
   }
+  const result = await Student.create(studentData); //built in static method
 
-  const result = await student.save(); // built in instance method
+  // creat custom instance methods
+  // const student = new Student(studentData);
+  // if (await student.isUserExists(studentData.id)) {
+  //   throw new Error('User already exists');
+  // }
+  // const result = await student.save(); // built in instance method
+
   return result;
 };
 

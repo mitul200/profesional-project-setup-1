@@ -1,3 +1,5 @@
+// import { Model } from 'mongoose';
+
 import { Model } from 'mongoose';
 
 export type TGuardian = {
@@ -39,12 +41,18 @@ export type TStudent = {
   isActive?: 'active' | 'blocked';
 };
 
-export type studentMethods = {
+export interface StudentModel extends Model<TStudent> {
   isUserExists(id: string): Promise<TStudent | null>;
-};
+}
 
-export type StudentModel = Model<
-  TStudent,
-  Record<string, unknown>,
-  studentMethods
->;
+//create instance methods
+// export type studentMethods = {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// };
+// export type StudentModel = Model<
+//   TStudent,
+//   Record<string, unknown>,
+//   studentMethods
+// >;
+
+// creat custom static methods
