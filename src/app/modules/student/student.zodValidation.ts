@@ -110,6 +110,7 @@ const studentValidationSchema = z.object({
       errorMap: () => ({ message: 'Status must be either active or blocked' }),
     })
     .default('active'),
+  isDeleted: z.boolean().optional(),
 });
 
 export default studentValidationSchema;

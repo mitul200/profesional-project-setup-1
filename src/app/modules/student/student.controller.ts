@@ -46,11 +46,11 @@ const getAllStudent = async (req: Request, res: Response) => {
       message: 'Students retrive successfully 2nd time',
       data: result,
     });
-  } catch (error) {
-    res.status(200).json({
+  } catch (err: any) {
+    res.status(500).json({
       success: false,
-      message: 'Students retrive successfully 2nd time',
-      error: error,
+      message: err.message || 'Something want wrong !!',
+      error: err,
     });
   }
 };
@@ -64,8 +64,30 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: ' Single Students info retrive successfully',
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Something want wrong !!',
+      error: err,
+    });
+  }
+};
+
+const deleteStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const result = await studentService.deleteStudentFromDB(studentId);
+    res.status(200).json({
+      success: true,
+      message: 'Student data deleted successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Something want wrong !!',
+      error: err,
+    });
   }
 };
 
@@ -86,4 +108,5 @@ export const studentContollers = {
   creatStudent,
   getAllStudent,
   getSingleStudent,
+  deleteStudent,
 };
