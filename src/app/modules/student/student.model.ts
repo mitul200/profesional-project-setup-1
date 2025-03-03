@@ -1,4 +1,6 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
+
 import {
   StudentModel,
   TGuardian,
@@ -6,6 +8,8 @@ import {
   TStudent,
 } from './student.interface';
 import validator from 'validator';
+import config from '../../config';
+
 const userNameSchema = new Schema({
   firstName: {
     type: String,
@@ -107,6 +111,13 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     required: [true, 'Student ID is required!'],
     unique: true,
   },
+  password: {
+    type: String,
+    trim: true,
+    required: [true, 'Password is required!'],
+    unique: true,
+    maxlength: [30, 'Password cannot exceed 10 characters'],
+  },
   name: {
     type: userNameSchema,
     required: [true, 'Name is required!'],
@@ -195,6 +206,20 @@ const studentSchema = new Schema<TStudent, StudentModel>({
 // };
 
 // creat a static custom methods
+
+studentSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
+
+studentSchema.post('save', function () {
+  console.log(this, 'post hook we will save data');
+});
 
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
