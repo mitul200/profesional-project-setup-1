@@ -1,4 +1,4 @@
-import { Schema, VirtualType, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 import {
