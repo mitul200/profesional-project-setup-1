@@ -112,6 +112,12 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Student ID is required!'],
       unique: true,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'User ID must be required'],
+      unique: true,
+      ref: 'User',
+    },
     password: {
       type: String,
       trim: true,
@@ -186,16 +192,6 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     profileImg: {
       type: String,
       trim: true,
-    },
-    isActive: {
-      type: String,
-      trim: true,
-      enum: {
-        values: ['active', 'blocked'],
-        message:
-          '{VALUE} is not supported. Status must be either active or blocked',
-      },
-      default: 'active',
     },
     isDeleted: {
       type: Boolean,
