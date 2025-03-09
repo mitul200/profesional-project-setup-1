@@ -22,9 +22,6 @@ const creatStudentIntroDB = async (password: string, studentData: TStudent) => {
     const newStudent = await Student.create(studentData);
     return newStudent;
   }
-
-  // const result = await User.create(studentData); //built in static method
-
   return newUser;
 };
 export const UserServices = { creatStudentIntroDB };

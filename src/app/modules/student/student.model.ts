@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import bcrypt from 'bcrypt';
 
 import {
   StudentModel,
@@ -8,7 +7,6 @@ import {
   TStudent,
 } from './student.interface';
 import validator from 'validator';
-import config from '../../config';
 
 const userNameSchema = new Schema({
   firstName: {
@@ -118,12 +116,6 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       unique: true,
       ref: 'User',
     },
-    password: {
-      type: String,
-      trim: true,
-      required: [true, 'Password is required!'],
-      maxlength: [30, 'Password cannot exceed 10 characters'],
-    },
     name: {
       type: userNameSchema,
       required: [true, 'Name is required!'],
@@ -207,30 +199,6 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 
 studentSchema.virtual('fullName').get(function () {
   return `${this.name.firstName}  ${this.name.middleName}  ${this.name.lastName}`;
-});
-
-// creat a custom instance  methods
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const existingUser = await Student.findOne({ id });
-//   return existingUser;
-// };
-
-// creat a static custom methods
-
-studentSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-
-studentSchema.post('save', function (doc, next) {
-  doc.password = '';
-  console.log(doc, 'post hook we will save data');
-  next();
 });
 
 // query middleware

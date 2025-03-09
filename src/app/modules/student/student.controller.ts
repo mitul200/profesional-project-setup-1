@@ -1,11 +1,15 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { studentService } from './student.service';
 
 // *** controller ar kaj hocche req nibe ar response pathabe *** ??
 
 // client theke amra 3 vabe data ante pari 1) params 2)query 3)body diye
 
-const getAllStudent = async (req: Request, res: Response) => {
+const getAllStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const result = await studentService.getAllStudentsFromDB();
     res.status(500).json({
@@ -13,16 +17,16 @@ const getAllStudent = async (req: Request, res: Response) => {
       message: 'Students retrive successfully 2nd time',
       data: result,
     });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something want wrong !!',
-      error: err,
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { studentId } = req.params;
     const result = await studentService.getSingleStudentFromDB(studentId);
@@ -31,16 +35,16 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: ' Single Students info retrive successfully',
       data: result,
     });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something want wrong !!',
-      error: err,
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { studentId } = req.params;
     const result = await studentService.deleteStudentFromDB(studentId);
@@ -49,12 +53,8 @@ const deleteStudent = async (req: Request, res: Response) => {
       message: 'Student data deleted successfully',
       data: result,
     });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something want wrong !!',
-      error: err,
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
