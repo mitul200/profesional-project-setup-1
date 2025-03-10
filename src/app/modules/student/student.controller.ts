@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import { studentService } from './student.service';
 import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
@@ -7,11 +7,7 @@ import status from 'http-status';
 
 // client theke amra 3 vabe data ante pari 1) params 2)query 3)body diye
 
-const getAllStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getAllStudent: RequestHandler = async (req, res, next) => {
   try {
     const result = await studentService.getAllStudentsFromDB();
     sendResponse(res, {
@@ -25,11 +21,7 @@ const getAllStudent = async (
   }
 };
 
-const getSingleStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getSingleStudent: RequestHandler = async (req, res, next) => {
   try {
     const { studentId } = req.params;
     const result = await studentService.getSingleStudentFromDB(studentId);
@@ -45,11 +37,7 @@ const getSingleStudent = async (
   }
 };
 
-const deleteStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const deleteStudent: RequestHandler = async (req, res, next) => {
   try {
     const { studentId } = req.params;
     const result = await studentService.deleteStudentFromDB(studentId);
