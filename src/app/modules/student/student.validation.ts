@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Joi from 'joi';
 
 const userNameValidationSchema = Joi.object({

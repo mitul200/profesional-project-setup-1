@@ -1,6 +1,6 @@
 // import { Model } from 'mongoose';
 
-import { Model, Types } from 'mongoose';
+import { Model, Types } from "mongoose";
 
 export type TGuardian = {
   fatherName: string;
@@ -29,12 +29,12 @@ export type TStudent = {
   user: Types.ObjectId;
   password: string;
   name: TUserName;
-  gender?: 'male' | 'female' | 'other';
-  dateOfBirth: string;
+  gender?: "male" | "female" | "other";
+  dateOfBirth: Date;
   email: string;
   contactNo: string;
   emergencyContactNumber: string;
-  bloodGrp?: 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
+  bloodGrp?: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-";
   presentAdress: string;
   parmanentAdress: string;
   guardian: TGuardian;
