@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-type TMonths =
+export type TMonths =
   | "January"
   | "February"
   | "March"
