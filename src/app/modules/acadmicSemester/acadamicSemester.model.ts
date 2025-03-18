@@ -41,6 +41,7 @@ const isSemesterExists = await AcadamicSemesterModel.findOne({
   name:this.name,
   year:this.year,
 })
+
 if(isSemesterExists){
   throw new Error('semester is already exiest')
 }

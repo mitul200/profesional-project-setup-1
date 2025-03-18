@@ -25,3 +25,9 @@ export const AcadamicSemesterName: TAcadamicSemesterName[] = [
   "Fall",
 ];
 export const AcadamicSemesterCode: TAcadamicSemesterCode[] = ["01", "02", "03"];
+
+export   const acadamicSemesterNameCodeMaper :TAcadamicSemesterNameCodeMaper = {
+  Autumn:"01",
+  Summar:"02",
+  Fall:"03"
+}
