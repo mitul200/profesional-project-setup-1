@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-type TMonth =
+type TMonths =
   | "January"
   | "February"
   | "March"
@@ -14,11 +14,13 @@ type TMonth =
   | "November"
   | "December";
 
+ export type TAcadamicSemesterName = "Autumn"|"Summar"|"Fall"
+ export type TAcadamicSemesterCode = "01"|"02"|"03"
 
 export type TAcadamicSemester = {
-  name: "Autumn" | "Summar" | "Fall";
-  code:"01"|"02"|"03"
+  name: TAcadamicSemesterName
+  code:TAcadamicSemesterCode
   year:Date
-  startMonth:TMonth
-  endMonth:TMonth
+  startMonth:TMonths
+  endMonth:TMonths
 };
