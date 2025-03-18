@@ -17,7 +17,7 @@ const AcadamicSemesterSchema = new Schema<TAcadamicSemester>({
     enum: AcadamicSemesterCode, // Ensures only these values are allowed
   },
   year: {
-    type: Date,
+    type: String,
     required: true,
   },
   startMonth: {
@@ -33,6 +33,19 @@ const AcadamicSemesterSchema = new Schema<TAcadamicSemester>({
 },{
   timestamps:true
 });
+
+
+
+AcadamicSemesterSchema.pre('save', async function(next){
+const isSemesterExists = await AcadamicSemesterModel.findOne({
+  name:this.name,
+  year:this.year,
+})
+if(isSemesterExists){
+  throw new Error('semester is already exiest')
+}
+next()
+})
 
 // Create the Mongoose model
 export const AcadamicSemesterModel = model<TAcadamicSemester>(

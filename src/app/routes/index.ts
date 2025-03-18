@@ -1,17 +1,22 @@
-import { Router } from 'express';
-import { UserRouter } from '../modules/user/user.route';
-import { studentRouter } from '../modules/student/student.route';
+import { Router } from "express";
+import { UserRouter } from "../modules/user/user.route";
+import { studentRouter } from "../modules/student/student.route";
+import { AcadamicSemesterRoutes } from "../modules/acadmicSemester/acadamicSemester.route";
 
 const router = Router();
 
 const modulesRoutes = [
   {
-    path: '/users',
+    path: "/users",
     router: UserRouter,
   },
   {
-    path: '/students',
+    path: "/students",
     router: studentRouter,
+  },
+  {
+    path: "/acadamic-semesters",
+    router: AcadamicSemesterRoutes,
   },
 ];
 

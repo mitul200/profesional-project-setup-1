@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Request, Response, RequestHandler, NextFunction } from 'express';
-import { studentService } from './student.service';
-import sendResponse from '../../utils/sendResponse';
-import status from 'http-status';
-import catchAsync from '../../utils/catchAsync';
+import { Request, Response, RequestHandler, NextFunction } from "express";
+import { studentService } from "./student.service";
+import sendResponse from "../../utils/sendResponse";
+import status from "http-status";
+import catchAsync from "../../utils/catchAsync";
 
 // *** controller ar kaj hocche req nibe ar response pathabe *** ??
 // const catchAsync = (fn: RequestHandler) => {
@@ -17,7 +17,7 @@ const getAllStudent = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
-    message: 'Students retrive successfully !!',
+    message: "Students retrive successfully !!",
     data: result,
   });
 });
@@ -29,7 +29,7 @@ const getSingleStudent = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
-    message: 'Single Students info retrive successfully',
+    message: "Single Students info retrive successfully",
     data: result,
   });
 });
@@ -40,7 +40,7 @@ const deleteStudent: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
-    message: 'Student data deleted successfully',
+    message: "Student data deleted successfully",
     data: result,
   });
 });
