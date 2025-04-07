@@ -1,25 +1,34 @@
-import config from '../../config';
-import { TStudent } from '../student/student.interface';
-import { Student } from '../student/student.model';
-import { TUser } from './user.interface';
-import { User } from './user.model';
+/* eslint-disable prettier/prettier */
+import config from "../../config";
+import { AcadamicSemesterModel } from "../acadmicSemester/acadamicSemester.model";
+import { TStudent } from "../student/student.interface";
+import { Student } from "../student/student.model";
+import { TUser } from "./user.interface";
+import { User } from "./user.model";
+import { generateStudentId } from "./user.utils";
 
-const creatStudentIntroDB = async (password: string, studentData: TStudent) => {
+const creatStudentIntroDB = async (password: string, payload: TStudent) => {
   const userData: Partial<TUser> = {};
-  // if password is not gicven then given a default password
+  // if password is not given then given a default password
   userData.password = password || (config.default_password as string);
   // set role
-  userData.role = 'student';
-  // set id
-  userData.id = '20300001';
+  userData.role = "student";
+
+  // find academic semestar id 
+ const admissionSemester = await AcadamicSemesterModel.findById(payload.admissionSemester)
+
+ if (!admissionSemester) {
+  throw new Error("Admission semester not found!");
+}
+  userData.id = generateStudentId(admissionSemester);
   // creat a student
   const newUser = await User.create(userData);
 
   if (Object.keys(newUser).length) {
-    studentData.id = newUser.id;
-    studentData.user = newUser._id; //referance id
+    payload.id = newUser.id;
+    payload.user = newUser._id; //referance id
 
-    const newStudent = await Student.create(studentData);
+    const newStudent = await Student.create(payload);
     return newStudent;
   }
   return newUser;

@@ -73,7 +73,7 @@ const creatStudentValidationSchema = z.object({
     student: z.object({
       name: userNameValidationSchema,
       gender: z.enum(["male", "female", "other"]),
-      dateOfBirth: z.date().optional(),
+      dateOfBirth: z.string().optional(),
       email: z
         .string()
         .trim()
@@ -92,6 +92,7 @@ const creatStudentValidationSchema = z.object({
           errorMap: () => ({ message: "{VALUE} is not a valid blood group" }),
         })
         .optional(),
+      admissionSemester: z.string(),
       presentAdress: z
         .string()
         .trim()

@@ -1,8 +1,8 @@
-import { RequestHandler } from 'express';
-import { UserServices } from './user.service';
-import sendResponse from '../../utils/sendResponse';
-import status from 'http-status';
-import catchAsync from '../../utils/catchAsync';
+import { RequestHandler } from "express";
+import { UserServices } from "./user.service";
+import sendResponse from "../../utils/sendResponse";
+import status from "http-status";
+import catchAsync from "../../utils/catchAsync";
 
 const creatStudent: RequestHandler = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
@@ -11,7 +11,7 @@ const creatStudent: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
-    message: 'stdent creat successfully',
+    message: "stdent creat successfully",
     data: result,
   });
 
